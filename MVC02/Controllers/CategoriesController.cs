@@ -22,6 +22,7 @@ namespace MVC02.Controllers
         }
 
         // GET: Categories
+       
         public async Task<IActionResult> Index()
         {
 
