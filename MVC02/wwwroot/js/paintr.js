@@ -96,12 +96,17 @@ function randomizeRGB(color) {
  */
 
 function drawAll() {
+
   var grid = [];
 
   grid = randomizeHalfGrid(grid);
   var center = randomizeCenterGrid();
 
   var canvas = document.getElementById('canvas');
+  canvas.style.display = "block";
+  avatarDiv = document.getElementById('avatar');
+  avatarDiv.style.display = "none";
+
   if (canvas.getContext) {
   console.log("i draw all")
 
