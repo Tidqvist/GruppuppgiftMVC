@@ -1,0 +1,13 @@
+.vs
+obj
+bin
+packages
+.vscode
+
+*.user
+*.suo
+*.log
+*.dll
+*.pdb
+
+project.lock.json
