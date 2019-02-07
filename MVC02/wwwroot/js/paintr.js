@@ -161,5 +161,24 @@ function drawAll() {
     }
   }
 }
-console.log("HEEEJ")
 drawAll();
+
+$("#btnSave").click(async function () {
+
+    let image = document.getElementById("canvas").toDataURL("image/png");
+    image = image.replace('data:image/png;base64,', '');
+    
+    let respons = await fetch(
+      `../../../Admin/UploadImage`,
+      {
+          method: 'POST',
+          body: JSON.stringify(image),
+          headers: { 'content-type': 'application/json' }
+      }
+    );
+
+  });
+
+
+
+

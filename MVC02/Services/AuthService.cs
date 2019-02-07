@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,12 @@ namespace Mvc02.Services
             var resultList =  GetUsers().Select( x => new UserAndRoles() { User = x, Roles = _signInManager.UserManager.GetRolesAsync(x).Result });
 
             return resultList;
+        }
+
+        
+        internal string GetUserId(ClaimsPrincipal claims)
+        {
+            return  _userManager.GetUserId(claims);
         }
 
         internal IEnumerable<IdentityUser> GetUsers()

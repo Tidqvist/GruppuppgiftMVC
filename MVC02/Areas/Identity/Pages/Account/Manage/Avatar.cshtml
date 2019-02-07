@@ -10,6 +10,14 @@
 <div class="row">
     <div class="col-md-6">
         <p>@Model.message</p>
+
+        <canvas id="canvas"></canvas>
+
+        <button onclick="drawAll();">Generate new avatar</button>
+        <button id="btnSave">Save as my avatar</button>
+
+     
+
         @*<p>
             <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
         </p>
@@ -24,4 +32,6 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/paintr.js"></script>
+
 }
