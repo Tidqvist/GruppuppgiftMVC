@@ -161,7 +161,6 @@ function drawAll() {
     }
   }
 }
-drawAll();
 
 $("#btnSave").click(async function () {
 
@@ -176,6 +175,9 @@ $("#btnSave").click(async function () {
           headers: { 'content-type': 'application/json' }
       }
     );
+    if (respons.status == 200) {
+        location.reload();
+    }
 
   });
 

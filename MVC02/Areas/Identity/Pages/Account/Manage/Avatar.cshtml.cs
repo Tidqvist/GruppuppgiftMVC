@@ -10,7 +10,6 @@ namespace MVC02.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<PersonalDataModel> _logger;
-        public string message { get; set; }
 
         public AvatarModel(
             UserManager<IdentityUser> userManager,
@@ -28,7 +27,6 @@ namespace MVC02.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            message = "hej";
             return Page();
         }
     }
