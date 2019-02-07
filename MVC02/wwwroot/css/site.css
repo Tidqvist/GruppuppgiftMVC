@@ -1,17 +1,23 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
-for details on configuring this project to bundle and minify static web assets. */
+﻿
+#body2 {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    animation: colorchange 10ms;
+    -webkit-animation: colorchange 10s;
+    background-color: red;
+
+}
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    animation: colorchange 50s;
-    -webkit-animation: colorchange 50s;
+    color: white;
+    background-color: darkslategray;
 }
 
 .navbar {
     background-color: #343a40;
 }
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -33,9 +39,9 @@ body {
     margin: 15px;
 }
 
-/* Hide/rearrange for smaller screens */
+
 @media screen and (max-width: 767px) {
-    /* Hide captions */
+    
     .carousel-caption {
         display: none;
     }
@@ -63,7 +69,7 @@ body {
     }
 }
 
-@-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+@-webkit-keyframes colorchange
 {
     0% {
         background: red;
@@ -83,5 +89,37 @@ body {
 
     100% {
         background: red;
+    }
+}
+
+.typewriter h1 {
+    color: #fff;
+    font-family: monospace;
+    overflow: hidden; 
+    border-right: .15em solid orange; 
+    white-space: nowrap; 
+    margin: 0 auto; 
+    letter-spacing: .15em; 
+    animation: typing 3.5s steps(30, end), blink-caret .5s step-end infinite;
+}
+
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+@keyframes blink-caret {
+    from, to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: orange
     }
 }
