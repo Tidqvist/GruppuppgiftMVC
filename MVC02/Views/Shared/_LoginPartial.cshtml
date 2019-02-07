@@ -12,7 +12,9 @@
         @{
             var imgLocation = $@"/images/{UserManager.GetUserId(User)}.png";
          }
-        <img src="@imgLocation" alt="~/images/icon.png" style="margin: 2px; width: 45px; border: 1px solid lavender; border-radius: 20px; " />
+        <object data="@imgLocation" style="margin: 2px; width: 45px; border: 6px solid #343a40; border-radius: 10px; " type="image/png">
+            <img src="~/images/icon.png" style="margin: 2px; width: 47px; border: 6px solid #343a40; border-radius: 10px; ">
+        </object>
     </span>
     <ul class="nav navbar-nav navbar-right"> 
         <li>
