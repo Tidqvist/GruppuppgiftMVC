@@ -11,7 +11,7 @@ using MVC02.Models.Entities;
 
 namespace MVC02.Controllers
 {
-    [Authorize(Roles ="Kung")]
+    //[Authorize(Roles ="Kung")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
