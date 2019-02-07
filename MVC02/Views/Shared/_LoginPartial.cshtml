@@ -5,12 +5,14 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    
+
 <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
     <span class="icon-bar">
         <!--  Genererad bild skall in här -->
-        <a asp-area="Identity" asp-page="/Account/Manage/Index">
-        <img src="~/images/icon.png" style="margin: 2px; width: 45px; border: 2.5px solid #343a40; border-radius: 20px; " /></a>
+        @{
+            var imgLocation = $@"/images/{UserManager.GetUserId(User)}.png";
+         }
+        <img src="@imgLocation" alt="~/images/icon.png" style="margin: 2px; width: 45px; border: 1px solid lavender; border-radius: 20px; " />
     </span>
     <ul class="nav navbar-nav navbar-right"> 
         <li>
