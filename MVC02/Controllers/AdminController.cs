@@ -34,6 +34,12 @@ namespace MVC02.Controllers
             return View(usersWithRoles);
         }
 
+        public async Task<IActionResult> ManageRoles()
+        {
+            IEnumerable<UserAndRoles> usersWithRoles = await _auth.GetUsersWithRoles();
+            return View(usersWithRoles);
+        }
+
         public async Task<IActionResult> AddRole()
         {
             return View();

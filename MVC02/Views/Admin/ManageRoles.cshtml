@@ -1,20 +1,22 @@
-﻿@model IEnumerable<MVC02.Models.ViewModels.UserAndRoles>
+﻿@model IEnumerable<UserAndRoles>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ManageRoles";
 }
 
-<h2>Index</h2>
+<h2>Manage Roles</h2>
 
-<p>
-    <a asp-controller="Categories" asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-               
+                @Html.DisplayNameFor(model => model.Roles)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Email)
+                
+            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -22,11 +24,22 @@
         @foreach (var item in Model)
         {
             <tr>
+              
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+
                 <td>
-                    <a asp-controller="Admin" asp-action="ManageRoles" asp-route-id="@item.Role">@Html.DisplayFor(modelItem => item.Name)</a>
+                    @Html.DisplayFor(modelItem => item.User.Email)
                 </td>
                 <td>
-               
+                    <a asp-controller="Admin" asp-action="ManageRole" asp-route-id="@item.">
+                        @string.Join(", ", item.Roles)
+                    </a>
+                </td>
+
+                <td>
+                    <a asp-action="EditRoles" asp-route-id="@item.User.Id">Edit</a> |
+                    @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                 </td>
             </tr>
         }
