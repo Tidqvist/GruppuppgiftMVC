@@ -33,15 +33,25 @@ namespace Mvc02.Services
 
         internal async Task<IEnumerable<UserAndRoles>> GetUsersWithRoles()
         {
-            var resultList =  GetUsers().Select( x => new UserAndRoles() { User = x, Roles = _signInManager.UserManager.GetRolesAsync(x).Result });
+            var resultList = GetUsers().Select(x => new UserAndRoles() { User = x, Roles = _signInManager.UserManager.GetRolesAsync(x).Result });
 
             return resultList;
         }
+        internal async Task<IEnumerable<SelectListItem>> GetRolesAsSelectListItems()
+        {
+            var resultList = _roleManager.Roles.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id });
+            return resultList;
+        }
 
-        
+
         internal string GetUserId(ClaimsPrincipal claims)
         {
-            return  _userManager.GetUserId(claims);
+            return _userManager.GetUserId(claims);
+        }
+
+        internal async Task<IdentityUser> GetUserById(string id)
+        {
+            return await _userManager.FindByIdAsync(id);
         }
 
         internal IEnumerable<IdentityUser> GetUsers()
@@ -70,6 +80,11 @@ namespace Mvc02.Services
         {
             var user = await _userManager.FindByEmailAsync(email);
             return !(user == null);
+        }
+
+        internal async Task<IEnumerable<string>> GetUsersRole(IdentityUser user)
+        {
+            return await _userManager.GetRolesAsync(user);
         }
 
         internal async Task<bool> RoleExists(string role)

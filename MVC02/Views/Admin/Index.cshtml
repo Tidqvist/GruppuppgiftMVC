@@ -40,8 +40,9 @@
                 @Html.DisplayFor(modelItem => item.User.Email)
             </td>
             <td>
-                @string.Join(", ",item.Roles)
-
+                <a asp-controller="Admin" asp-action="index" asp-route-id="@item.">
+                    @string.Join(", ", item.Roles)
+                </a>
             </td>
 
             <td>

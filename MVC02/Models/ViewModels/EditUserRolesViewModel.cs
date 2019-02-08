@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace MVC02.Models.ViewModels
 {
-    public class UserAndRoles
+    public class EditUserRolesViewModel
     {
         public IdentityUser User { get; set; }
-        public IEnumerable<string> Roles { get; set; }
-        public IEnumerable<SelectListItem> RolesSelectList { get; set; }
+
+        public IEnumerable<SelectListItem> AllRoles { get; set; }
+        public IEnumerable<string> SelectedRoles { get; set; }
     }
 }
