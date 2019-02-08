@@ -34,11 +34,8 @@
             <div class="navbar-collapse collapse" id="navbarNavDropdown">
                 <ul class="nav navbar-nav ">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="Products" asp-action="Index">Products</a></li>
                     <li><a asp-area="" asp-controller="Categories" asp-action="Index">Categories</a></li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" asp-controller="Admin" asp-action="Index" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Admin
@@ -49,6 +46,8 @@
                             <li><a asp-controller="Admin" asp-action="AddRole">Add new role</a></li>
                             <li><a asp-controller="Admin" asp-action="AddRoleForUser">Add role to user</a> </li>
                         </ul>
+                    <li><a asp-area="" asp-controller="Contact" asp-action="Index">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     </li>
                 </ul>
                
