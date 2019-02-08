@@ -88,10 +88,12 @@ namespace MVC02.Controllers
 
         public async Task<IActionResult> EditUserRoles(string id)
         {
-            var rolesSelectList = await _auth.GetRolesAsSelectListItems();
-            var ViewModel = new UserAndRoles();
-            ViewModel.RolesSelectList = rolesSelectList;
+            var ViewModel = new EditUserRolesViewModel();
+
+            ViewModel.AllRoles = await _auth.GetRolesAsSelectListItems();
             ViewModel.User = await _auth.GetUserById(id);
+            ViewModel.SelectedRoles = await _auth.GetUsersRole(ViewModel.User);
+
             return View(ViewModel);
         }
 

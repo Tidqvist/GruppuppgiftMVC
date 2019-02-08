@@ -82,6 +82,11 @@ namespace Mvc02.Services
             return !(user == null);
         }
 
+        internal async Task<IEnumerable<string>> GetUsersRole(IdentityUser user)
+        {
+            return await _userManager.GetRolesAsync(user);
+        }
+
         internal async Task<bool> RoleExists(string role)
         {
             return await _roleManager.RoleExistsAsync(role);
