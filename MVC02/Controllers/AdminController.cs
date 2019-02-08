@@ -84,6 +84,17 @@ namespace MVC02.Controllers
             return View();
         }
 
+
+
+        public async Task<IActionResult> EditUserRoles(string id)
+        {
+            var rolesSelectList = await _auth.GetRolesAsSelectListItems();
+            var ViewModel = new UserAndRoles();
+            ViewModel.RolesSelectList = rolesSelectList;
+            ViewModel.User = await _auth.GetUserById(id);
+            return View(ViewModel);
+        }
+
         [HttpPost]
         public IActionResult UploadImage([FromBody]string image)
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVC02.Models.ViewModels;
 
@@ -31,15 +32,25 @@ namespace Mvc02.Services
 
         internal async Task<IEnumerable<UserAndRoles>> GetUsersWithRoles()
         {
-            var resultList =  GetUsers().Select( x => new UserAndRoles() { User = x, Roles = _signInManager.UserManager.GetRolesAsync(x).Result });
+            var resultList = GetUsers().Select(x => new UserAndRoles() { User = x, Roles = _signInManager.UserManager.GetRolesAsync(x).Result });
 
             return resultList;
         }
+        internal async Task<IEnumerable<SelectListItem>> GetRolesAsSelectListItems()
+        {
+            var resultList = _roleManager.Roles.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id });
+            return resultList;
+        }
 
-        
+
         internal string GetUserId(ClaimsPrincipal claims)
         {
-            return  _userManager.GetUserId(claims);
+            return _userManager.GetUserId(claims);
+        }
+
+        internal async Task<IdentityUser> GetUserById(string id)
+        {
+            return await _userManager.FindByIdAsync(id);
         }
 
         internal IEnumerable<IdentityUser> GetUsers()
