@@ -84,17 +84,34 @@ namespace MVC02.Controllers
             return View();
         }
 
-
-
         public async Task<IActionResult> EditUserRoles(string id)
         {
-            var ViewModel = new EditUserRolesViewModel();
+            var viewModel = new EditUserRolesViewModel();
 
-            ViewModel.AllRoles = await _auth.GetRolesAsSelectListItems();
-            ViewModel.User = await _auth.GetUserById(id);
-            ViewModel.SelectedRoles = await _auth.GetUsersRole(ViewModel.User);
+            viewModel.AllRoles = await _auth.GetRolesAsSelectListItems();
+            viewModel.User = await _auth.GetUserById(id);
+            viewModel.SelectedRoles = await _auth.GetUsersRole(viewModel.User);
 
-            return View(ViewModel);
+            viewModel.Id = viewModel.User.Id;
+            viewModel.Email = viewModel.User.Email;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUserRoles(EditUserRolesViewModel viewModel)
+        {
+            Task<IEnumerable<string>> roles = _auth.GetUsersRole(await _auth.GetUserById(viewModel.Id));
+
+            viewModel.SelectedRoles.ToList().ForEach( x =>  _ = _auth.AddRoleToUser(viewModel.Id, x).Result);
+
+            
+
+            //    ViewModel.AllRoles = await _auth.GetRolesAsSelectListItems();
+            //    ViewModel.User = await _auth.GetUserById(id);
+            //    ViewModel.SelectedRoles = await _auth.GetUsersRole(ViewModel.User);
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
