@@ -185,6 +185,27 @@ namespace MVC02.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("MVC02.Models.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contact");
+                });
+
             modelBuilder.Entity("MVC02.Models.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
