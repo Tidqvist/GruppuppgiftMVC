@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Mvc02.Services;
 using MVC02.Data;
 using MVC02.Models;
 using MVC02.Models.ViewModels;
@@ -15,10 +16,13 @@ namespace MVC02.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly AuthService _auth;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context, AuthService auth)
         {
             _context = context;
+            _auth = auth;
+
         }
 
         // GET: Products
@@ -28,7 +32,35 @@ namespace MVC02.Controllers
                 return View(await _context.Product.Include(x => x.Category).Where(x => x.Category.Id == id).ToListAsync());
 
             else
-                return View(await _context.Product.Include(x => x.Category).ToListAsync());
+            {
+                var r = User.IsInRole("apa");
+                var productList = _context.Product.Include(x => x.Category).Include(x => x.ProductsRoles).ToList();
+                var roleList = _auth.GetAllRoles().ToList();
+                var userRoles = roleList;
+                var userProductList = productList;
+                foreach (var role in roleList)
+                {
+                    if (!User.IsInRole(role.Text))
+                        userRoles = userRoles.Where(x => x != role).ToList();
+                }
+
+               foreach (var product in productList)
+                {
+                        bool ProductRoleMatchUserRole = false;
+                    foreach (var role in userRoles)
+                    {
+                        foreach (var productRole in product.ProductsRoles)
+                        {
+                            if (productRole.RoleId == role.Value)
+                                ProductRoleMatchUserRole = true;
+                        }
+                    }
+                    if (!ProductRoleMatchUserRole)
+                        userProductList = userProductList.Where(userProduct => userProduct != product).ToList();
+                }
+                return View(userProductList);
+                //return View(await _context.Product.Include(x => x.Category).Include(x => x.ProductsRoles).Where(product => product.ProductsRoles.Any(role =>  User.IsInRole(role.RoleId.ToString()))).ToListAsync());
+            }
         }
 
         // GET: Products/Details/5
@@ -54,6 +86,7 @@ namespace MVC02.Controllers
         {
             var viewModel = new CreateProductVm();
             viewModel.AllCategories = _context.Category.Select(category => new SelectListItem() { Text = category.Name, Value = category.Id.ToString() });
+            viewModel.AllRoles = _auth.GetAllRoles();
 
             return View(viewModel);
         }
@@ -63,17 +96,25 @@ namespace MVC02.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,CategoryId,ForSale")] Product product)
+        public async Task<IActionResult> Create(CreateProductVm vm) // [Bind("Id,Name,Price,CategoryId,ForSale,ProductsRoles")] 
         {
 
 
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                vm.Product.ProductsRoles = new List<ProductsRoles>();
+                //List<string> xs = new List<string>();
+                foreach (var role in vm.SelectedRoles)
+                {
+                    //xs.Add(role);
+                    vm.Product.ProductsRoles.Add(new ProductsRoles { RoleId = role });
+                }
+                vm.SelectedRoles = new List<string>();
+                _context.Add(vm.Product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(null);
         }
 
         // GET: Products/Edit/5

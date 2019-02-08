@@ -13,6 +13,7 @@ using MVC02.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mvc02.Services;
+using MVC02.Models;
 
 namespace MVC02
 {
@@ -41,7 +42,7 @@ namespace MVC02
             //services.AddDefaultIdentity<IdentityUser>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-             services.AddIdentity<IdentityUser, IdentityRole>()
+             services.AddIdentity<IdentityUser, AppRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
@@ -50,6 +51,7 @@ namespace MVC02
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
