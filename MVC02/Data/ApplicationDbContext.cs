@@ -25,5 +25,6 @@ namespace MVC02.Data
         
         public DbSet<MVC02.Models.Product> Product { get; set; }
         public DbSet<MVC02.Models.Entities.Category> Category { get; set; }
+        public DbSet<MVC02.Models.Contact> Contact { get; set; }
     }
 }

@@ -12,9 +12,11 @@
         @{
             var imgLocation = $@"/images/{UserManager.GetUserId(User)}.png";
          }
-        <object data="@imgLocation" style="margin: 2px; width: 45px; border: 6px solid #343a40; border-radius: 10px; " type="image/png">
-            <img src="~/images/icon.png" style="margin: 2px; width: 47px; border: 6px solid #343a40; border-radius: 10px; ">
-        </object>
+        <a asp-area="Identity" asp-page="/Account/Manage/Index">
+            <object data="@imgLocation" style="margin: 2px; width: 45px; border: 6px solid #343a40; border-radius: 10px; " type="image/png">
+                <img src="~/images/icon.png" style="margin: 2px; width: 47px; border: 6px solid #343a40; border-radius: 10px; ">
+            </object>
+        </a>
     </span>
     <ul class="nav navbar-nav navbar-right"> 
         <li>
