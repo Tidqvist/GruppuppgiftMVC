@@ -10,38 +10,38 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Roles)
+             
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.Email)
+                @Html.DisplayNameFor(model => model.User.UserName)
                 
             </th>
 
             <th></th>
         </tr>
     </thead>
-    @*<tbody>
-        @foreach (var item in Model)
+    <tbody>
+        @foreach(var item in Model)
         {
             <tr>
-              
+                @Html.DisplayFor(modelItem => item.User.UserName)
+
+                <td>
                     @Html.DisplayFor(modelItem => item.User.UserName)
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.Email)
                 </td>
                 <td>
-                    <a asp-controller="Admin" asp-action="ManageRole" asp-route-id="@item.">
+                    
                         @string.Join(", ", item.Roles)
-                    </a>
+                    
                 </td>
 
                 <td>
-                    <a asp-action="EditRoles" asp-route-id="@item.User.Id">Edit</a> |
-                    @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    @*<a asp-action="EditRoles" asp-route-id="@item.User.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                 </td>
             </tr>
+        
         }
-    </tbody>*@
-</table>
+    </tbody>
+        </table>
