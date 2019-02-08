@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MVC02.Models;
 using MVC02.Models.ViewModels;
 
 namespace Mvc02.Services
@@ -12,9 +14,9 @@ namespace Mvc02.Services
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<AppRole> _roleManager;
 
-        public AuthService(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<IdentityUser> signInManager)
+        public AuthService(UserManager<IdentityUser> userManager, RoleManager<AppRole> roleManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -47,9 +49,14 @@ namespace Mvc02.Services
                 return false;
             }
 
-            IdentityRole role = new IdentityRole(roleName);
+            AppRole role = new AppRole(roleName);
             var result = await _roleManager.CreateAsync(role);
             return result.Succeeded;
+        }
+
+        internal IEnumerable<SelectListItem> GetAllRoles()
+        {
+            return _roleManager.Roles.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name });
         }
 
         internal async Task<bool> UserExist(string email)

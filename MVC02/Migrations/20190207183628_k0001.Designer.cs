@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace MVC02.Data.Migrations
+namespace MVC02.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190205132320_002")]
-    partial class _002
+    [Migration("20190207183628_k0001")]
+    partial class k0001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,9 @@ namespace MVC02.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Name")
                         .HasMaxLength(256);
 
@@ -43,6 +46,8 @@ namespace MVC02.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -138,11 +143,9 @@ namespace MVC02.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -173,11 +176,9 @@ namespace MVC02.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
@@ -192,7 +193,8 @@ namespace MVC02.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -205,14 +207,48 @@ namespace MVC02.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CategoryId");
+
+                    b.Property<bool>("ForSale");
+
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<double>("Price");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(5, 2)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("MVC02.Models.ProductsRoles", b =>
+                {
+                    b.Property<string>("RoleId");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<string>("AppRoleId");
+
+                    b.HasKey("RoleId", "ProductId");
+
+                    b.HasIndex("AppRoleId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductsRoles");
+                });
+
+            modelBuilder.Entity("MVC02.Models.AppRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
+
+
+                    b.ToTable("AppRole");
+
+                    b.HasDiscriminator().HasValue("AppRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -257,6 +293,26 @@ namespace MVC02.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MVC02.Models.Product", b =>
+                {
+                    b.HasOne("MVC02.Models.Entities.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MVC02.Models.ProductsRoles", b =>
+                {
+                    b.HasOne("MVC02.Models.AppRole", "AppRole")
+                        .WithMany("ProductRoles")
+                        .HasForeignKey("AppRoleId");
+
+                    b.HasOne("MVC02.Models.Product", "Product")
+                        .WithMany("ProductsRoles")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

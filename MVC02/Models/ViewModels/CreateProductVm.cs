@@ -11,5 +11,8 @@ namespace MVC02.Models.ViewModels
     {
         public IEnumerable<SelectListItem> AllCategories { get; set; }
         public Product Product { get; set; }
+        public IEnumerable<SelectListItem> AllRoles { get; set; }
+
+        public IEnumerable<string> SelectedRoles { get; set; }
     }
 }

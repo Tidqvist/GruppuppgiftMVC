@@ -13,7 +13,16 @@ namespace MVC02.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProductsRoles>().HasKey(sc => new { sc.RoleId, sc.ProductId });
+            base.OnModelCreating(modelBuilder);
+        }
+
+        
         public DbSet<MVC02.Models.Product> Product { get; set; }
         public DbSet<MVC02.Models.Entities.Category> Category { get; set; }
     }
