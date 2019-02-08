@@ -1,5 +1,8 @@
 ﻿@page
 @model AvatarModel
+
+@inject UserManager<IdentityUser> UserManager
+
 @{
     ViewData["Title"] = "Personal Data";
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
@@ -9,26 +12,41 @@
 
 <div class="row">
     <div class="col-md-6">
-        <p>@Model.message</p>
+        @{
+            var imgLocation = $@"/images/{UserManager.GetUserId(User)}.png";
+        }
+        <div id="avatar">
+            <object data="@imgLocation" style="margin: 2px; width: 100px; border: 6px solid #343a40; border-radius: 10px; " type="image/png">
+                <img src="~/images/icon.png" style="margin: 2px; width: 100px; border: 6px solid #343a40; border-radius: 10px; ">
+            </object>
+        </div>
+        <canvas style="margin: 2px; width: 100px; border: 6px solid #343a40; border-radius: 10px; display: none"  id="canvas" width="100"  height="100"></canvas>
+        <div>
+            <button style="margin: 10px 0px" onclick="drawAll();">Generate new avatar</button>
+        </div>
+        <div>
+            <button id="btnSave">Save as my avatar</button>
+        </div>
 
-        <canvas id="canvas" width="100" height="100"></canvas>
 
-        <button  onMouseOver="this.style.background='orange'"
+<!--
+<button  onMouseOver="this.style.background='orange'"
    onMouseOut="this.style.background='#026db7'" style="height:45px ;width:150px; color: black; border: 2px solid #2f4f4f; border-radius: 5px; background-color: #026db7;" onclick="drawAll();">Generate new avatar</button>
         <button  onMouseOver="this.style.background='orange'"
-   onMouseOut="this.style.background='#026db7'" style="height:45px ;width:150px; color: black; border: 2px solid #2f4f4f; border-radius: 5px; background-color: #026db7;" id="btnSave">Save as my avatar</button>
+   onMouseOut="this.style.background='#026db7'" style="height:45px ;width:150px; color: black; border: 2px solid #2f4f4f; border-radius: 5px; background-color: #026db7;" id="btnSave">Save as my avatar</button>-->
 
-     
+
+
 
         @*<p>
-            <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-        </p>
-        <form asp-page="DownloadPersonalData" method="post" class="form-group">
-            <button class="btn btn-default" type="submit">Download</button>
-        </form>
-        <p>
-            <a asp-page="DeletePersonalData" class="btn btn-default">Delete</a>
-        </p>*@
+                <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+            </p>
+            <form asp-page="DownloadPersonalData" method="post" class="form-group">
+                <button class="btn btn-default" type="submit">Download</button>
+            </form>
+            <p>
+                <a asp-page="DeletePersonalData" class="btn btn-default">Delete</a>
+            </p>*@
     </div>
 </div>
 

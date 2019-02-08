@@ -96,12 +96,17 @@ function randomizeRGB(color) {
  */
 
 function drawAll() {
+
   var grid = [];
 
   grid = randomizeHalfGrid(grid);
   var center = randomizeCenterGrid();
 
   var canvas = document.getElementById('canvas');
+  canvas.style.display = "block";
+  avatarDiv = document.getElementById('avatar');
+  avatarDiv.style.display = "none";
+
   if (canvas.getContext) {
   console.log("i draw all")
 
@@ -161,7 +166,6 @@ function drawAll() {
     }
   }
 }
-drawAll();
 
 $("#btnSave").click(async function () {
 
@@ -176,6 +180,9 @@ $("#btnSave").click(async function () {
           headers: { 'content-type': 'application/json' }
       }
     );
+    if (respons.status == 200) {
+        location.reload();
+    }
 
   });
 

@@ -79,11 +79,16 @@ namespace MVC02.Controllers
             return View("Success", addrole);
         }
 
+        public async Task<IActionResult> EditRoles(string id)
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult UploadImage([FromBody]string image)
         {
             System.Security.Claims.ClaimsPrincipal u = User;
-            string fileNameWitPath = _env.WebRootPath + @"/images/"+ _auth.GetUserId(User) + ".png";
+            string fileNameWitPath = _env.WebRootPath + @"/images/" + _auth.GetUserId(User) + ".png";
             using (FileStream fs = new FileStream(fileNameWitPath, FileMode.Create))
             {
                 using (BinaryWriter bw = new BinaryWriter(fs))
