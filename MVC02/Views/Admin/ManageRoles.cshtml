@@ -10,10 +10,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Roles)
+             
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.Email)
+                @Html.DisplayNameFor(model => model.User.UserName)
                 
             </th>
 
@@ -28,7 +28,7 @@
                     @Html.DisplayFor(modelItem => item.User.UserName)
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.Email)
+                    @Html.DisplayFor(modelItem => item.User.UserName)
                 </td>
                 <td>
                     <a asp-controller="Admin" asp-action="ManageRole" asp-route-id="@item.">
