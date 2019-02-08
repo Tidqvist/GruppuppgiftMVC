@@ -24,12 +24,12 @@ Avabutton{
     background-color: red;
 
 }
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    color: white;
-    background-color: darkslategray;
-}
+    body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+        color: white;
+        background-color: darkslategray;
+    }
 
 .navbar {
     background-color: #343a40;

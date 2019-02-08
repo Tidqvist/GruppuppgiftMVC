@@ -1,0 +1,15 @@
+﻿@model Contact
+
+@{
+    ViewData["Title"] = "Success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-success">Thank you for contacting us!</h2>
+<br />
+<h4>Thank you <strong>@Model.Name</strong> for your message.</h4>
+<h4>We will probably never read your message, but expect your email <strong>@Model.Email</strong> to be sent to hackers and spammed with phishing attempts.</h4>
+<br />
+
+<h3 class="text-info">Message:</h3>
+<h4>@Model.Message</h4>
