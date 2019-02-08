@@ -24,9 +24,9 @@ namespace Mvc02.Services
             _signInManager = signInManager;
         }
 
-        public async Task<bool> AddRoleToUser(string email, string roleName)
+        public async Task<bool> AddRoleToUser(string id, string roleName)
         {
-            IdentityUser user = await _userManager.FindByEmailAsync(email);
+            IdentityUser user = await _userManager.FindByIdAsync(id);
             var result = await _userManager.AddToRoleAsync(user, roleName);
             return result.Succeeded;
         }
@@ -39,7 +39,7 @@ namespace Mvc02.Services
         }
         internal async Task<IEnumerable<SelectListItem>> GetRolesAsSelectListItems()
         {
-            var resultList = _roleManager.Roles.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id });
+            var resultList = _roleManager.Roles.Select(x => new SelectListItem() { Text = x.Name, Value = x.Name });
             return resultList;
         }
 

@@ -12,6 +12,9 @@ namespace MVC02.Models.ViewModels
     {
         public IdentityUser User { get; set; }
 
+        public string Id { get; set; }
+        public string Email { get; set; }
+
         public IEnumerable<SelectListItem> AllRoles { get; set; }
         public IEnumerable<string> SelectedRoles { get; set; }
     }

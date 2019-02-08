@@ -35,6 +35,10 @@ namespace MVC02.Controllers
             {
                 var r = User.IsInRole("apa");
                 var productList = _context.Product.Include(x => x.Category).Include(x => x.ProductsRoles).ToList();
+                if (User.IsInRole("admin"))
+                {
+                    return View(productList);
+                }
                 var roleList = _auth.GetAllRoles().ToList();
                 var userRoles = roleList;
                 var userProductList = productList;
@@ -58,6 +62,7 @@ namespace MVC02.Controllers
                     if (!ProductRoleMatchUserRole)
                         userProductList = userProductList.Where(userProduct => userProduct != product).ToList();
                 }
+               
                 return View(userProductList);
                 //return View(await _context.Product.Include(x => x.Category).Include(x => x.ProductsRoles).Where(product => product.ProductsRoles.Any(role =>  User.IsInRole(role.RoleId.ToString()))).ToListAsync());
             }
