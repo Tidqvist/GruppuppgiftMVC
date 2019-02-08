@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MVC02.Controllers
 {
-    //[Authorize(Roles = "admin,ADMIN,Dam,Kung")]
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
