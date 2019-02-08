@@ -5,16 +5,26 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-            </li>
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
-            </li>
-        </ul>
-    </form>
+
+<form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
+    <span class="icon-bar">
+        <!--  Genererad bild skall in här -->
+        @{
+            var imgLocation = $@"/images/{UserManager.GetUserId(User)}.png";
+         }
+        <object data="@imgLocation" style="margin: 2px; width: 45px; border: 6px solid #343a40; border-radius: 10px; " type="image/png">
+            <img src="~/images/icon.png" style="margin: 2px; width: 47px; border: 6px solid #343a40; border-radius: 10px; ">
+        </object>
+    </span>
+    <ul class="nav navbar-nav navbar-right"> 
+        <li>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        </li>
+        <li>
+            <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
+        </li>
+    </ul>
+</form>
 }
 else
 {
