@@ -1,4 +1,21 @@
-﻿
+﻿a {
+    color: darkcyan;
+   
+}
+
+#navlinks {
+    background-color: #343a40;
+    border-radius: 5px;
+}
+    #navlinks.selected {
+        background-color: black;
+    }
+
+Avabutton{
+
+    color: black;
+}
+
 #body2 {
     padding-top: 50px;
     padding-bottom: 20px;
