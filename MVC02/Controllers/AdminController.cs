@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MVC02.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin,ADMIN,Dam,Kung")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -103,7 +103,14 @@ namespace MVC02.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUserRoles(EditUserRolesViewModel viewModel)
         {
-            Task<IEnumerable<string>> roles = _auth.GetUsersRole(await _auth.GetUserById(viewModel.Id));
+            var user = await _auth.GetUserById(viewModel.Id);
+
+            IEnumerable<string> oldRoles = _auth.GetUsersRole(user).Result;
+
+            var rolesToDelete = oldRoles.Where(oldRoleName => viewModel.SelectedRoles.All(newRoleName => newRoleName != oldRoleName));
+
+            await _auth.DeleteRole(user, rolesToDelete);
+            //rolesToDelete.ToList().ForEach(x => _auth.DeleteRole(x))
 
             viewModel.SelectedRoles.ToList().ForEach( x =>  _ = _auth.AddRoleToUser(viewModel.Id, x).Result);
 
