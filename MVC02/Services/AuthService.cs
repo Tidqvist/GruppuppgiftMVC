@@ -91,6 +91,11 @@ namespace Mvc02.Services
         {
             return await _roleManager.RoleExistsAsync(role);
         }
+
+        internal async Task DeleteRole(IdentityUser user, IEnumerable<string> rolesToDelete)
+        {
+            await  _userManager.RemoveFromRolesAsync(user, rolesToDelete);
+        }
         // din kod här
     }
 }
