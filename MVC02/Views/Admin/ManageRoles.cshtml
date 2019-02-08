@@ -10,11 +10,13 @@
     <thead>
         <tr>
             <th>
-             
+                @Html.DisplayNameFor(model => model.Roles)
+                
+
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.UserName)
-                
+                @Html.DisplayNameFor(model => model.User)
+
             </th>
 
             <th></th>
@@ -24,21 +26,24 @@
         @foreach(var item in Model)
         {
             <tr>
-                @Html.DisplayFor(modelItem => item.User.UserName)
+                
 
                 <td>
+                    @string.Join(", ", item.Roles)
+                </td>
+                <td>
+
+                 
                     @Html.DisplayFor(modelItem => item.User.UserName)
-                </td>
-                <td>
-                    
-                        @string.Join(", ", item.Roles)
-                    
+                <p>Hejhej@hej.se</p>
+
+
                 </td>
 
                 <td>
-                    @*<a asp-action="EditRoles" asp-route-id="@item.User.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                    <a asp-action="EditUserRoles" asp-route-id="@item.User.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.User.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.User.Id">Delete</a>
                 </td>
             </tr>
         
